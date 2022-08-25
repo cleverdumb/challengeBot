@@ -15,6 +15,7 @@ db.run('create table if not exists problems (problem varchar, author varchar)',e
 })
 
 let pool = [];
+let did;
 
 db.all('select * from problems', (err,rows)=>{
     if (err) throw err;
@@ -85,8 +86,9 @@ function newDay() {
 }
 
 setInterval(()=>{
-    if (Date.getHours()==15) {
+    if (Date.getHours()==15 && Date.getDay() != did) {
         newDay();
+        did = Date.getDay();
     }
 },1800000)
 
